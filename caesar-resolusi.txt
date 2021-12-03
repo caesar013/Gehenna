@@ -1,7 +1,7 @@
 caesar resolusi
 - Menguasai Bahasa Java
-- Memahami class di Java
 - Dapat membuat project dari Java
 - Menguasai Mobile Development
 - Mencari pengalaman dengan sebuah project
 - Mendapatkan penghasilan dari project tersebut
+- Mempelajari Phyton
