@@ -1,0 +1,51 @@
+/*elemen h1 disini merujuk pada tag h1 di html yang terkait(selector)*/
+h1 {
+    /*properti color disini digunakan untuk mengatur warna di selector. */
+    /*properti aqua disini dapat diekspresikan menggunakan heksadesimal dan didahului oleh #*/
+    /*PERHATIAN
+    1. jangan lupa untuk memberi indentasi setelah elemen sebelum properti agar terlihat semakin rapi
+    2. jangan lupa memberi tanda titik dua (:) setelah properti dan tanda titik koma (;) setelah perintah*/
+    color: aqua;
+}
+
+/*properti selected bisa diterapkan saat terdapat class selected pada HTML yang terkait
+jangan lupa untuk memberi tanda titik (.) sebelum property */
+.selected {
+    /*property font-size digunakan untuk mengatur besar teks*/
+    /*PERHATIAN
+    1. huruf px(piksel) harus menyertai nilai dari font-size*/
+    font-size: 12px;
+}
+
+p {
+    /*jika family name hanya satu kata(Acedia), tanpa menggunakan tanpa apit('...')*/
+    font-family: 'Lucida Sans';
+}
+
+h2 {
+    /*Property background-color memungkinkan Anda untuk mengubah warna latar belakang*/
+    /*Selain itu, jika huruf yang sama memanjang seperti #dddddd, ini dapat disingkat menjadi #ddd*/
+    background-color: #00f;
+}
+
+img {
+    /*Untuk mengubah lebar dan tinggi element, gunakan property width (lebar) dan height (tinggi). 
+    Unit kedua element ini dapat ditentukan dengan px, sama seperti font-size.*/
+    width: 970px;
+    height: 500px;
+}
+
+li {
+    /*akan memberti warna pada keseluruhan elemen li*/
+    color: #000;
+    font-size: 19px;
+}
+
+.selected {
+    /*tag color disini akan memberi selector sebuah pengecualian terhadap 2 item lain*/
+    color: #bb0000;
+}
+
+li {
+    list-style: none;
+}
