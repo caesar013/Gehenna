@@ -44,6 +44,9 @@ public class Constructors {
     public static void main(String[] args) {
         Vehicle v1 = new Vehicle("Blue");
 
+        // color will be "Red"(by Default)
+        Vehicle v2 = new Vehicle();
+
         // third3:
 
         // color will be "Red"
