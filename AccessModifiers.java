@@ -1,4 +1,3 @@
-
 public class AccessModifiers {
     // Now let's discuss the public keyword in front of the main method.
     // public static void main(String [] args) {}
