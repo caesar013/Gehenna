@@ -7,7 +7,7 @@
  * - A constructor must have no explicit return type.
  */
 
-public class Vehicle {
+ class Vehicle {
     private String color;
 
     Vehicle() {
@@ -21,10 +21,10 @@ public class Vehicle {
  * A constructor can also take parameters to initialize attributes.
  */
 
-public class Vehicle2 {
+ class Vehicle2 {
     private String color;
 
-    Vehicle(String c) {
+    Vehicle2(String c) {
         color = c;
     }
 }
@@ -42,7 +42,7 @@ public class Vehicle2 {
 
 public class Constructors {
     public static void main(String[] args) {
-        Vehicle v1 = new Vehicle("Blue");
+        //Vehicle v1 = new Vehicle("Blue"); -> This won't work because we don't have the constructor with the parameter.
 
         // color will be "Red"(by Default)
         Vehicle v2 = new Vehicle();
@@ -50,10 +50,10 @@ public class Constructors {
         // third3:
 
         // color will be "Red"
-        Vehicle3 v1 = new Vehicle3();
+        Vehicle3 v3 = new Vehicle3();
 
         // color will be "Green"
-        Vehicle3 v2 = new Vehicle3("Green");
+        Vehicle3 v4 = new Vehicle3("Green");
 
         /**
          * Java automatically provides a default constructor, so all classes have a
@@ -73,7 +73,7 @@ public class Constructors {
  * values.
  */
 
-public class Vehicle3 {
+ class Vehicle3 {
     private String color;
 
     Vehicle3() {

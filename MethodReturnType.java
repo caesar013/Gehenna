@@ -45,7 +45,7 @@ class MethodReturnType {
     }
 
     // has a parameter
-    static int sayHello(Sting name) {
+    static void sayHello(String name) {
         System.out.println("Hello " + name);
     }
 

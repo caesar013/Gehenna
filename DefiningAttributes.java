@@ -1,4 +1,4 @@
-class ClassAttributes {
+class DefiningAttributes {
     /**
      * A class has attributes and methods. The attributes are basically variables
      * within a class.
@@ -6,8 +6,7 @@ class ClassAttributes {
      * methods.
      */
 
-    public class Vehicle()
-    {
+    class Vehicle{
         int maxSpeed, wheels;
         String color;
         double fuelCapacity;

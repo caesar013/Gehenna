@@ -1,4 +1,4 @@
-class ClassAttributes {
+public class ClassAttributes {
     /**
      * A class has attributes and methods. The attributes are basically variables
      * within a class.
@@ -6,16 +6,7 @@ class ClassAttributes {
      * methods.
      */
 
-    public class Vehicle()
-    {
-        int maxSpeed, wheels;
-        String color;
-        double fuelCapacity;
-
-        void horn() {
-            System.out.println("Beep!");
-        }
-    }
+    
 
     /**
      * maxSpeed, wheels, color and fuelCapacity are the attributes of our Vehicle
@@ -32,7 +23,17 @@ class ClassAttributes {
     public static void main(String[] args) {
         Vehicle v1 = new Vehicle();
         Vehicle v2 = new Vehicle();
-        v1.color = "red";
-        v2.horn();
+        // v1.color = "red";
+        // v2.horn();
     }
 }
+
+class Vehicle{
+        int maxSpeed, wheels;
+        String color;
+        double fuelCapacity;
+
+        void horn() {
+            System.out.println("Beep!");
+        }
+    }

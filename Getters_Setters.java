@@ -9,7 +9,7 @@
  * of the variable name capitalized.
  */
 
-public class Vehicle {
+class Vehicle {
     private String color;
 
     // Getter

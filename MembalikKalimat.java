@@ -6,6 +6,7 @@ public class MembalikKalimat {
         System.out.print("Masukkan kalimat : ");
         String text = scanner.nextLine();
         char[] arr = text.toCharArray();
+        scanner.close();
 
         // your code goes here
         /**

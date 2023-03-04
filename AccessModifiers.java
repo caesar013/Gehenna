@@ -26,13 +26,13 @@ public class AccessModifiers {
      */
 }
 
-public class Vehicle {
+class Vehicle {
     private int maxSpeed;
     private int wheels;
     private String color;
-    private double fuelCapacity
+    private double fuelCapacity;
 
-    public void orn() {
+    public void horn() {
         System.out.println("Beep!");
     }
 }
