@@ -13,6 +13,12 @@
     Vehicle() {
         color = "Red";
     }
+
+    // I create this Getter only for I not getting any warning bullshits. 
+    // You may ignore it as it doesn't have any relation in this subject we're discussing.
+    public String getColor(){
+        return this.color;
+    }
 }
 
 /**
@@ -25,7 +31,12 @@
     private String color;
 
     Vehicle2(String c) {
-        color = c;
+        this.color = c;
+    }
+
+    // this getter below also has the same reason as its sibling you'll read 
+    public String getColor(){
+        return this.color;
     }
 }
 
@@ -54,6 +65,12 @@ public class Constructors {
 
         // color will be "Green"
         Vehicle3 v4 = new Vehicle3("Green");
+
+        // These command below also just because I hate getting some warning. 
+        // They don't actually have particular meaning what-so-ever
+        v2.toString();
+        v3.toString();
+        v4.toString();
 
         /**
          * Java automatically provides a default constructor, so all classes have a
@@ -87,6 +104,11 @@ public class Constructors {
     // Setter
     public void setColor(String c) {
         this.color = c;
+    }
+
+    // I set this Getter just so the code won't give me a lil annoying warning
+    public String getColor(){
+        return this.color;
     }
 
     /**
