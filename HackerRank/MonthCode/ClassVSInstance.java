@@ -8,10 +8,23 @@ public class ClassVSInstance {
     public static void main(String[] args) throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         int i = Integer.parseInt(bf.readLine().trim());
-        
-        while (i-- > 0) {
-            
+        if (i < 1 || i > 4) {
+            bf.close();
+            System.exit(0);
         }
+        while (i-- > 0) {
+            int a = Integer.parseInt(bf.readLine().trim());
+            if (a < -5 || a > 30) {
+                continue;
+            }
+            Person p = new Person(a);
+            p.amIOld();
+            for (int j = 0; j < 3; j++) {
+                p.yearPasses();
+            }
+            p.amIOld();
+        }
+        bf.close();
     }
 }
 
