@@ -35,6 +35,24 @@ class Vehicle {
     public void horn() {
         System.out.println("Beep!");
     }
+
+    // WARNING! These following getter I write only have one single purpose
+    // it is avoiding some bullshit warnings which will pop out every single time I open my VSCode. you may ignore it.
+    public int getMaxSpeed(){
+        return this.maxSpeed;
+    }
+
+    public int getWheels(){
+        return this.wheels;
+    }
+
+    public String getColor(){
+        return this.color;
+    }
+
+    public double getFuelCapacity(){
+        return this.fuelCapacity;
+    }
 }
 
 /**
