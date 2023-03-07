@@ -23,6 +23,7 @@ public class ClassVSInstance {
                 p.yearPasses();
             }
             p.amIOld();
+            System.out.println();
         }
         bf.close();
     }
