@@ -1,4 +1,4 @@
-package SoloLearn;
+package SoloLearn.Java;
 class helloWorld {
     // this one is called ~class~
 

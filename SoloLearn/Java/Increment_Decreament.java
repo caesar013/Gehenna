@@ -1,4 +1,4 @@
-package SoloLearn;
+package SoloLearn.Java;
 class Increment_Decreament {
     public static void main(String[] args) {
         /**

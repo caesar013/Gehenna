@@ -1,4 +1,4 @@
-package SoloLearn;
+package SoloLearn.Java;
 /**
  * Constructors are special methods invoked when an object is created and are
  * used to initialize them.

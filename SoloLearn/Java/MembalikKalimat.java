@@ -1,4 +1,4 @@
-package SoloLearn;
+package SoloLearn.Java;
 import java.util.Scanner;
 
 public class MembalikKalimat {

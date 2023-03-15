@@ -1,4 +1,4 @@
-package SoloLearn;
+package SoloLearn.Java;
 class ConditionalStatements {
     public static void main(String[] args) {
         /**

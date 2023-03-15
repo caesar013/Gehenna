@@ -1,4 +1,4 @@
-package SoloLearn;
+package SoloLearn.Java;
 class WhileLoops {
     public static void main(String[] args) {
         /**

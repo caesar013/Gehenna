@@ -1,4 +1,4 @@
-package SoloLearn;
+package SoloLearn.Java;
 public class ClassAttributes {
     /**
      * A class has attributes and methods. The attributes are basically variables

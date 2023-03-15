@@ -1,4 +1,4 @@
-package SoloLearn;
+package SoloLearn.Java;
 
 /*While Java provides many different methods for getting user input, 
 the Scanner object is the most common, and perhaps the easiest to implement. 

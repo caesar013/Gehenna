@@ -1,4 +1,4 @@
-package SoloLearn;
+package SoloLearn.Java;
 public class Arrays {
     public static void main(String[] args) {
         /**

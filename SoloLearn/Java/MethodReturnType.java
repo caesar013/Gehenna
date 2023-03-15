@@ -1,4 +1,4 @@
-package SoloLearn;
+package SoloLearn.Java;
 class MethodReturnType {
     static int sum(int val1, int val2) {
         return val1 + val2;

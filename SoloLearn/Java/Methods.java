@@ -1,4 +1,4 @@
-package SoloLearn;
+package SoloLearn.Java;
 class Methods {
     static void sayHello() {
         System.out.println("Hello World !");

@@ -1,4 +1,4 @@
-package SoloLearn;
+package SoloLearn.Java;
 /**
  * Getters and Setters are used to effectively protect your data, particularly
  * when creating classes. For each variable, the get method returns its value,
