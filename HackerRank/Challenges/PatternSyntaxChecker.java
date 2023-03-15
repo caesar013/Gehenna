@@ -13,6 +13,8 @@ public class PatternSyntaxChecker{
             String str = s.nextLine();
             try {
                 Pattern p = Pattern.compile(str);
+                // this code exists only for avoiding error in 
+                p.toString();
                 System.out.println("Valid");
             } catch (PatternSyntaxException a) {
                 System.out.println("Invalid");
