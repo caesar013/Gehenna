@@ -47,3 +47,8 @@ print(squares[1:-1])
 
 # Note : If a negative value is used for the step, the slice will be done backwards.
 
+'''Using [::-1] as a slice is a common and idiomatic way to reverse a list.'''
+
+nums = [5, 42, 7, 1, 0]
+res = nums[::-1]
+print(res)
