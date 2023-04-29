@@ -14,6 +14,13 @@ public class Encapsulation {
     }
 
     /*
+     * Remember that the code below only purpose is to avoid an error
+     */
+    public double getBalance(){
+        return this.balance;
+    }
+
+    /*
      * This implementation hides the balance variable, enabling access to it only through the deposit method, 
      * which validates the amount to be deposited before modifying the variable. 
      */

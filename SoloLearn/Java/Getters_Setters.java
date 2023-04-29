@@ -10,19 +10,19 @@ package SoloLearn.Java;
  * of the variable name capitalized.
  */
 
-class Vehicle {
-    private String color;
+// class Vehicle {
+//     private String color;
 
-    // Getter
-    public String getColor() {
-        return color;
-    }
+//     // Getter
+//     public String getColor() {
+//         return color;
+//     }
 
-    // Setter
-    public void setColor(String c) {
-        this.color = c;
-    }
-}
+//     // Setter
+//     public void setColor(String c) {
+//         this.color = c;
+//     }
+// }
 
 /**
  * The getter method returns the value of the attribute.
@@ -38,9 +38,9 @@ class Vehicle {
 
 public class Getters_Setters {
     public static void main(String[] args) {
-        Vehicle v1 = new Vehicle();
-        v1.setColor("Red");
-        System.out.println(v1.getColor());
+        // Vehicle v1 = new Vehicle();
+        // v1.setColor("Red");
+        // System.out.println(v1.getColor());
     }
 }
 

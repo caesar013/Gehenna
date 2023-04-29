@@ -19,8 +19,10 @@ public class Statics {
     public static void main(String[ ] args) {
         Statics c1 = new Statics();
         Statics c2 = new Statics();
+        c1.toString();
+        c2.toString();
         System.out.println(Statics.COUNT);
-        Vehicle.horn();
+        // Vehicle.horn();
         /*Another example of static methods are those of the Math class, which is why you can call them without creating a Math object. */
         // Also, the main method must always be static.
       }
@@ -36,8 +38,8 @@ public class Statics {
 
 }
 
-class Vehicle {
-  public static void horn() {
-    System.out.println("Beep");
-  }
-}
+// class Vehicle {
+//   public static void horn() {
+//     System.out.println("Beep");
+//   }
+// }

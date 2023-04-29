@@ -8,19 +8,19 @@ package SoloLearn.Java;
  * - A constructor must have no explicit return type.
  */
 
- class Vehicle {
-    private String color;
+//  class Vehicle {
+//     private String color;
 
-    Vehicle() {
-        color = "Red";
-    }
+//     Vehicle() {
+//         color = "Red";
+//     }
 
-    // I create this Getter only for I not getting any warning bullshits. 
-    // You may ignore it as it doesn't have any relation in this subject we're discussing.
-    public String getColor(){
-        return this.color;
-    }
-}
+//     // I create this Getter only for I not getting any warning bullshits. 
+//     // You may ignore it as it doesn't have any relation in this subject we're discussing.
+//     public String getColor(){
+//         return this.color;
+//     }
+// }
 
 /**
  * The Vehicle() method is the constructor of our class, so whenever an object
