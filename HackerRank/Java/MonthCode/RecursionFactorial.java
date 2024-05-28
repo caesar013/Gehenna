@@ -1,5 +1,3 @@
-package HackerRank.MonthCode;
-
 import java.io.IOException;
 import java.lang.Integer;
 import java.io.BufferedReader;

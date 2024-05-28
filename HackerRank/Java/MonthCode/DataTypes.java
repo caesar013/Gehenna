@@ -1,5 +1,3 @@
-package HackerRank.MonthCode;
-
 import java.util.Scanner;
 
 public class DataTypes {

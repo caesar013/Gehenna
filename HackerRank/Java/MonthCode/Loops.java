@@ -1,5 +1,3 @@
-package HackerRank.MonthCode;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,7 +11,7 @@ public class Loops {
             System.exit(0);
         }
         for (int j = 1; j < 11; j++) {
-            System.out.printf("%d x %d = %d\n", i,j,(i*j));
+            System.out.printf("%d x %d = %d\n", i, j, (i * j));
         }
         bf.close();
     }

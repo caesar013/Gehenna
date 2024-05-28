@@ -1,5 +1,3 @@
-package HackerRank.MonthCode;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,11 +12,12 @@ public class Operators {
         bf.close();
     }
 }
-class Result{
-    public static void solve(double cost_meal, int tip_percent, int tax_percent){
+
+class Result {
+    public static void solve(double cost_meal, int tip_percent, int tax_percent) {
         double a = cost_meal * tip_percent / 100;
         double b = cost_meal * tax_percent / 100;
-        int cost = (int) Math.round(cost_meal +  a + b);
+        int cost = (int) Math.round(cost_meal + a + b);
         System.out.println(cost);
     }
 }
