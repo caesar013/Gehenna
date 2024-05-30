@@ -30,14 +30,12 @@ public class MoreExceptions {
                 try {
                     System.out.println(calc.power(n, p));
                 } catch (IllegalArgumentException e) {
-                    // TODO: handle exception
                     // print the message from the exception thrown from power method
                     System.out.println(e.getMessage());
                 }
             }
             b.close();
         } catch (Exception e) {
-            // TODO: handle exception
             e.printStackTrace();
         }
     }

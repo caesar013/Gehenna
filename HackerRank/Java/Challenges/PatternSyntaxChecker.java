@@ -1,10 +1,10 @@
-package HackerRank.Challenges;
+package HackerRank.Java.Challenges;
 
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-public class PatternSyntaxChecker{
+public class PatternSyntaxChecker {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
         int x = s.nextInt();
@@ -13,7 +13,7 @@ public class PatternSyntaxChecker{
             String str = s.nextLine();
             try {
                 Pattern p = Pattern.compile(str);
-                // this code exists only for avoiding error in 
+                // this code exists only for avoiding error in
                 p.toString();
                 System.out.println("Valid");
             } catch (PatternSyntaxException a) {
