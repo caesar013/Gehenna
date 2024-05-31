@@ -1,4 +1,4 @@
-package HackerRank.Java.Challenges;
+package HackerRank.Java.Prepare;
 
 import java.util.Scanner;
 import java.util.regex.Pattern;
