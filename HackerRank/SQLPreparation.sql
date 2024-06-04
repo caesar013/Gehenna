@@ -102,3 +102,97 @@ select name from employee order by name;
 -- Write a query that prints a list of employee names(i.e. the name attribute) for employee in Employee having a salary greater than $2000 per month 
 -- who have been  employees for less than 10 months. Sort your result by ascending employee_id
 select name from employee where salary > 2000 and months < 10 order by employee_id;
+
+-- AGGREGATION
+-- 1. Revising Aggregations - The Count Function
+-- Query a count of the number of cities in CITY having a Population larger than 100.000.
+select count(id) from city where population > 100000;
+
+-- 2. The Sum Function
+-- Query the total population of all cities in CITY where District is California.
+select sum(population) from city where district = 'California';
+
+-- 3. Averages
+-- Query the average population of all cities in CITY where District is California.
+select avg(population) from city where district = 'California';
+
+-- 4. Average population
+-- Query the average population for all cities in CITY, rounded down to the nearest integer.
+select round(avg(population), 0) from city;
+
+-- 5. Japan Population
+-- Query the sum of the populations for all Japanese cities in CITY. The COUNTRYCODE for Japan is JPN.
+select sum(population) from city where countrycode = 'JPN';
+
+-- 6. Population Density Difference
+-- Query the difference between the maximum and minimum populations in CITY.
+select max(population) - min(population) from city;
+
+-- 7. The Blunder
+-- Samantha was tasked with calculating the average monthly salaries for all employees in the EMPLOYEES table, 
+-- but did not realize her keyboard's 0 key was broken until after completing the calculation. 
+-- She wants your help finding the difference between her miscalculation (using salaries with any zeros removed), and the actual average salary.
+
+-- Write a query calculating the amount of error (i.e.: actual - miscalculated average monthly salaries), and round it up to the next integer.
+select ceil(avg(salary) - avg(replace(salary, 0, ''))) from employees;
+
+-- 8. Top Earners
+-- We define an employee's total earnings to be their monthly salary x months worked, 
+-- and the maximum total earnings to be the maximum total earnings for any employee in the Employee table. 
+-- Write a query to find the maximum total earnings for all employees as well as the total number of employees who have maximum total earnings. 
+-- Then print these values as 2 space-separated integers.
+select (salary * months) total_earnings, count(*) from employee group by 1 order by total_earnings desc limit 1;
+-- note : group by 1 will group the result based on the first column(total_earnings) from the select 7
+
+-- 9. Weather observation Station 2
+-- Query the following two values from the STATION table:
+
+-- The sum of all values in LAT_N rounded to a scale of 2 decimal places.
+-- The sum of all values in LONG_W rounded to a scale of 2 decimal places.
+select round(sum(lat_n), 2), round(sum(long_w), 2) from station;
+
+-- 10. Weather Observation Station 13
+-- Query the sum of Northern Latitudes (LAT_N) from STATION having values greater than 38.7880 and less than 137.2345. 
+-- Truncate your answer to 4 decimal places.
+select truncate(sum(lat_n), 4) from station where lat_n > 38.7880 and lat_n < 137.2345;
+
+-- 11. Weather Observation Station 14
+-- Query the greatest value of the Northern Latitudes (LAT_N) from STATION that is less than 137.2345. 
+-- Truncate your answer to 4 decimal places.
+select truncate(lat_n, 4) from station where lat_n < 137.2345 order by lat_n desc limit 1;
+
+-- 12. Weather Observation Station 15
+-- Query the Western Longitude (LONG_W) for the largest Northern Latitude (LAT_N) in STATION that is less than 137.2345. 
+-- Round your answer to 4 decimal places.
+select round(long_w) from station where lat_n < 137.2345 order by lat_n desc limit 1;
+
+-- 13. Weather Observation Station 16
+-- Query the smallest Northern Latitude (LAT_N) from STATION that is greater than 38.7880. Round your answer to 4 decimal places.
+select round(lat_n, 4) from station where lat_n > 38.7880 order by lat_n limit 1;
+
+-- 14. Weather Observation Station 17
+-- Query the Western Longitude (LONG_W)where the smallest Northern Latitude (LAT_N) in STATION is greater than 38.7880. Round your answer to 4 decimal places.
+select round(long_w, 4) from station where lat_n > 38.7880 order by lat_n limit 1;
+
+-- 15. Weather Observation Station 18
+-- Consider p1(a,b) and p2(a,b) to be two points on a 2D plane.
+
+--  happens to equal the minimum value in Northern Latitude (LAT_N in STATION).
+--  happens to equal the minimum value in Western Longitude (LONG_W in STATION).
+--  happens to equal the maximum value in Northern Latitude (LAT_N in STATION).
+--  happens to equal the maximum value in Western Longitude (LONG_W in STATION).
+-- Query the Manhattan Distance between points p1 and p2 and round it to a scale of  decimal places.
+select round(abs(min(lat_n) - max(lat_n)) + abs(min(long_w) - abs(max(long_w))), 4) from station;
+
+-- 16. Weather Observation Station 19
+-- Consider p1(a, b) and p2(a, b) to be two points on a 2D plane where (a, b) are the respective minimum and maximum values of Northern Latitude (LAT_N) 
+-- and (c, d) are the respective minimum and maximum values of Western Longitude (LONG_W) in STATION.
+-- Query the Euclidean Distance between points p1 and p2 and format your answer to display 4 decimal digits.
+select format(sqrt(pow((min(lat_n) - max(lat_n)), 2) + pow((min(long_w) - max(long_w)), 2)), 4) from station;
+
+-- 17. Weather Observation Station 20
+-- A median is defined as a number separating the higher half of a data set from the lower half. 
+-- Query the median of the Northern Latitudes (LAT_N) from STATION and round your answer to 4 decimal places.
+Select round(S.LAT_N,4) mediam from station S where (select count(Lat_N) from station where Lat_N < S.LAT_N ) -- lower half
+= (select count(Lat_N) from station where Lat_N > S.LAT_N); -- higher half
+-- then it will return the exact middle item from the entire list
