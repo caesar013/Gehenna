@@ -196,3 +196,118 @@ select format(sqrt(pow((min(lat_n) - max(lat_n)), 2) + pow((min(long_w) - max(lo
 Select round(S.LAT_N,4) mediam from station S where (select count(Lat_N) from station where Lat_N < S.LAT_N ) -- lower half
 = (select count(Lat_N) from station where Lat_N > S.LAT_N); -- higher half
 -- then it will return the exact middle item from the entire list
+
+-- BASIC JOIN
+
+-- 1. Average Population of Each Continent
+-- Given the CITY and COUNTRY tables, query the names of all the continents (COUNTRY.Continent) 
+-- and their respective average city populations (CITY.Population) rounded down to the nearest integer.
+
+-- Note: CITY.CountryCode and COUNTRY.Code are matching key columns.
+select country.continent, floor(avg(city.population)) from city
+join country on city.countrycode = country.code
+group by country.continent;
+
+-- 2. The Report
+-- Ketty gives Eve a task to generate a report containing three columns: Name, Grade and Mark. 
+-- Ketty doesn't want the NAMES of those students who received a grade lower than 8. 
+-- The report must be in descending order by grade -- i.e. higher grades are entered first. 
+--If there is more than one student with the same grade (8-10) assigned to them, order those particular students by their name alphabetically. 
+-- Finally, if the grade is lower than 8, use "NULL" as their name and list them by their grades in descending order. 
+-- If there is more than one student with the same grade (1-7) assigned to them, order those particular students by their marks in ascending order.
+
+-- Write a query to help Eve.
+select if(grade < 8, null, name), grade, marks from students join grades where marks between min_mark and max_mark order by grade desc, name;
+
+-- 3. The Compititors
+-- Julia just finished conducting a coding contest, and she needs your help assembling the leaderboard! 
+-- Write a query to print the respective hacker_id and name of hackers who achieved full scores for more than one challenge. 
+-- Order your output in descending order by the total number of challenges in which the hacker earned a full score. 
+-- If more than one hacker received full scores in same number of challenges, then sort them by ascending hacker_id.
+
+select h.hacker_id, name from submissions sub
+join hackers h on h.hacker_id = sub.hacker_id
+join challenges ch on ch.challenge_id =  sub.challenge_id
+join difficulty diff on diff.difficulty_level = ch.difficulty_level
+where sub.score = diff.score and ch.difficulty_level = diff.difficulty_level
+group by h.hacker_id, name
+having count(h.hacker_id) > 1
+order by count(h.hacker_id) desc, h.hacker_id asc;
+
+-- 4. Population Census
+-- Given the CITY and COUNTRY tables, query the sum of the populations of all cities where the CONTINENT is 'Asia'.
+
+-- Note: CITY.CountryCode and COUNTRY.Code are matching key columns.
+select sum(ci.population) from city ci
+join country co on co.code = ci.countrycode 
+where co.continent = 'Asia'
+
+-- 5. African Census
+-- Given the CITY and COUNTRY tables, query the names of all cities where the CONTINENT is 'Africa'.
+
+-- Note: CITY.CountryCode and COUNTRY.Code are matching key columns.
+select ci.name from city ci
+join country co on co.code = ci.countrycode 
+where co.continent = 'Africa';
+
+-- 6. Ollivander's Inventory
+-- Harry Potter and his friends are at Ollivander's with Ron, finally replacing Charlie's old broken wand.
+
+-- Hermione decides the best way to choose is by determining the minimum number of gold galleons needed to buy each non-evil wand of high power and age. 
+-- Write a query to print the id, age, coins_needed, and power of the wands that Ron's interested in, sorted in order of descending power. 
+-- If more than one wand has same power, sort the result in order of descending age.
+select w.id, wp.age, w.coins_needed, w.power from wands w
+join wands_property wp on wp.code = w.code
+join ( select wanp.age, min(wan.coins_needed) min_coins, wan.power from wands wan
+     join wands_property wanp on wanp.code = wan.code
+      where wanp.is_evil = 0
+     group by wanp.age,wan.power
+     order by wan.power desc, wanp.age desc) 
+     jt on wp.age = jt.age and w.coins_needed = jt.min_coins and w.power = jt.power
+where wp.is_evil = 0
+order by w.power desc, wp.age desc
+
+-- 7. Challenges 
+-- Julia asked her students to create some coding challenges. 
+-- Write a query to print the hacker_id, name, and the total number of challenges created by each student. 
+-- Sort your results by the total number of challenges in descending order. 
+-- If more than one student created the same number of challenges, then sort the result by hacker_id. 
+-- If more than one student created the same number of challenges and the count is less than the maximum number of challenges created, 
+-- then exclude those students from the result.
+-- print the needed items
+select h.hacker_id, h.name, count(c.hacker_id) challenges_created 
+-- from these tables
+from hackers h
+join challenges c on c.hacker_id = h.hacker_id
+-- grouping cause we use aggregation, count()
+group by h.hacker_id, h.name
+-- use having instead of where is better when we're dealing with groups of data 
+having
+-- from the highest count(challenges_created)
+challenges_created =
+(select max(sq.cnt) 
+-- need to do this since we need the count for each hacker_id
+-- then we get the highest value
+from (select count(*) cnt from challenges group by hacker_id) sq)
+-- or
+or 
+-- below highest count which 
+challenges_created in
+(select sqr.c_count 
+from (select count(*) c_count from challenges group by hacker_id) sqr 
+group by sqr.c_count 
+-- has exactly 1 count
+having count(sqr.c_count) = 1)
+order by count(c.hacker_id) desc, h.hacker_id
+
+-- 8. Contest Leaderboard
+-- The total score of a hacker is the sum of their maximum scores for all of the challenges. 
+-- Write a query to print the hacker_id, name, and total score of the hackers ordered by the descending score. 
+-- If more than one hacker achieved the same total score, then sort the result by ascending hacker_id. 
+-- Exclude all hackers with a total score of 0 from your result.
+select h.hacker_id, h.name, sum(max_score.high_score) total_score from hackers h
+join (select hacker_id, max(score) high_score from submissions group by hacker_id, challenge_id) max_score
+on h.hacker_id = max_score.hacker_id
+group by h.hacker_id, h.name
+having total_score > 0
+order by total_score desc, h.hacker_id
