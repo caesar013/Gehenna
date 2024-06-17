@@ -311,3 +311,206 @@ on h.hacker_id = max_score.hacker_id
 group by h.hacker_id, h.name
 having total_score > 0
 order by total_score desc, h.hacker_id
+
+-- Advanced Select
+
+-- 1. Type of Triangle
+-- Write a query identifying the type of each record in the TRIANGLES table using its three side lengths. 
+-- Output one of the following statements for each record in the table:
+
+-- Equilateral: It's a triangle with  sides of equal length.
+-- Isosceles: It's a triangle with  sides of equal length.
+-- Scalene: It's a triangle with  sides of differing lengths.
+-- Not A Triangle: The given values of A, B, and C don't form a triangle.
+select
+case
+when a + b > c and b + c > a and a + c > b then 
+    case
+        when a = b and b = c then 'Equilateral'
+        when a = b or b = c or a = c then 'Isosceles'
+        else 'Scalene'
+    end
+else 'Not A Triangle'
+end
+from triangles
+
+-- 2. The PADS
+-- Generate the following two result sets:
+
+-- Query an alphabetically ordered list of all names in OCCUPATIONS, immediately followed by the first letter of each profession as a parenthetical (i.e.: enclosed in parentheses). For example: AnActorName(A), ADoctorName(D), AProfessorName(P), and ASingerName(S).
+-- Query the number of ocurrences of each occupation in OCCUPATIONS. Sort the occurrences in ascending order, and output them in the following format:
+
+-- There are a total of [occupation_count] [occupation]s.
+-- where [occupation_count] is the number of occurrences of an occupation in OCCUPATIONS and [occupation] is the lowercase occupation name. If more than one Occupation has the same [occupation_count], they should be ordered alphabetically.
+
+-- Note: There will be at least two entries in the table for each type of occupation.
+select concat(name, '(', left(occupation, 1), ')') from occupations o
+order by name;
+select concat('There are a total of ', count(occupation), ' ', lcase(occupation), 's.') from occupations
+group by occupation
+order by count(occupation), occupation;
+
+-- 3. Occupations
+-- Pivot the Occupation column in OCCUPATIONS so that each Name is sorted alphabetically and displayed underneath its corresponding Occupation. The output column headers should be Doctor, Professor, Singer, and Actor, respectively.
+
+-- Note: Print NULL when there are no more names corresponding to an occupation.
+set @r1=0, @r2=0, @r3=0, @r4=0;
+
+select 
+min(Doctor), min(Professor), min(Singer), min(Actor)
+from
+(
+    select 
+        case 
+            when occupation = 'Doctor' then (@r1:=@r1+1)
+            when occupation = 'Professor' then (@r2:=@r2+1)  
+            when occupation = 'Singer' then (@r3:=@r3+1)  
+            when occupation = 'Actor' then (@r4:=@r4+1)  
+        end rn,
+        case when occupation = 'Doctor' then name else null end Doctor,
+        case when occupation = 'Professor' then name else null end Professor,
+        case when occupation = 'Singer' then name else null end Singer,
+        case when occupation = 'Actor' then name else null end Actor
+    from occupations
+    order by name
+) pvt
+group by rn;
+-- NOTE : NO FUCKIN SPACE ARE ALLOWED BETWEEN THOSE @'s
+
+-- ----------------------------------------------- EXPLANATION -----------------------------------------------
+-- Let me break it down in steps (answer in MySQL)
+-- Step 1:
+-- Create a virtual table in your head of the data given to us. It look like this https://imgur.com/u6DEcNQ
+
+SELECT
+    case when Occupation='Doctor' then Name end as Doctor,
+    case when Occupation='Professor' then Name end as Professor,
+    case when Occupation='Singer' then Name end as Singer,
+    case when Occupation='Actor' then Name end as Actor
+FROM OCCUPATIONS
+-- Step 2:
+-- Create an index column with respect to occupation as "RowNumber".https://imgur.com/QzVCWFn
+
+-- Notice from the image, under professor column, the first Name is indexed as 1, the next name "Birtney" as 2. That is what I mean by index w.r.t occupation.
+
+-- The below code will only give the "RowNumber" column, to get the result like in image proceed to step 3.
+
+set @r1=0, @r2=0, @r3=0, @r4=0;
+
+SELECT case 
+	when Occupation='Doctor' then (@r1:=@r1+1)
+        when Occupation='Professor' then (@r2:=@r2+1)
+        when Occupation='Singer' then (@r3:=@r3+1)
+        when Occupation='Actor' then (@r4:=@r4+1) end as RowNumber
+
+FROM OCCUPATIONS
+-- Step 3:
+-- Combine the result from step 1 and step 2:
+
+set @r1=0, @r2=0, @r3=0, @r4=0;
+
+SELECT case 
+	when Occupation='Doctor' then (@r1:=@r1+1)
+        when Occupation='Professor' then (@r2:=@r2+1)
+        when Occupation='Singer' then (@r3:=@r3+1)
+        when Occupation='Actor' then (@r4:=@r4+1) end as RowNumber,
+        case when Occupation='Doctor' then Name end as Doctor,
+        case when Occupation='Professor' then Name end as Professor,
+        case when Occupation='Singer' then Name end as Singer,
+        case when Occupation='Actor' then Name end as Actor
+
+FROM OCCUPATIONS
+Step 4:
+-- Now, Order_by name then Group_By RowNumber.
+
+-- Using Min/Max, if there is a name, it will return it, if not, return NULL.
+
+set @r1=0, @r2=0, @r3=0, @r4=0;
+select min(Doctor), min(Professor), min(Singer), min(Actor)
+from(
+  select case when Occupation='Doctor' then (@r1:=@r1+1)
+            when Occupation='Professor' then (@r2:=@r2+1)
+            when Occupation='Singer' then (@r3:=@r3+1)
+            when Occupation='Actor' then (@r4:=@r4+1) end as RowNumber,
+    case when Occupation='Doctor' then Name end as Doctor,
+    case when Occupation='Professor' then Name end as Professor,
+    case when Occupation='Singer' then Name end as Singer,
+    case when Occupation='Actor' then Name end as Actor
+  from OCCUPATIONS
+  order by Name
+	) temp
+group by RowNumber;
+-- **EDIT** I can see many asking why MIN or temp?
+
+-- temp - Since I created a temporary table inside the query, I have to give it an alise. It is a good practise.
+
+-- Why MIN in the select statement? Since some of us here may not be fimilar with sql, I'll start with where I left so you get the whole picture.
+
+-- Once you complete step 3, add "ORDER BY Name" (Refer above code on where to add Order by clause). The result will look like this https://imgur.com/aBHUqN6
+-- What changed? the names in all four columns are sorted as per alphabetical order.
+
+-- Now, we only want the names and not the NULL values from our virtual table. How can we do that? - There maybe be multiple ways, lets us consider the MIN/MAX (Yes, you can replace MIN with MAX and you will get the same result)
+
+-- Without GROUP BY clause - When a MIN/MAX is used in a Select statement, it will return The "LOWEST" element from each column (which happened to be the first element because we used ORDER BY, if you use MAX, you will get the last element from each column). It will look like this https://imgur.com/XDZzc4Z That means, you will always get a single row from a table.
+
+SET @r1=0,@r2=0,@r3=0,@r4=0;
+SELECT MIN(Doctor),MIN(Professor),MIN(Singer),MIN(Actor)
+
+FROM (
+SELECT CASE
+    WHEN OCCUPATION = 'Doctor' THEN (@r1:=@r1+1)
+    WHEN OCCUPATION = 'Professor' THEN (@r2:=@r2+1)
+    WHEN OCCUPATION = 'Singer' THEN (@r3:=@r3+1)
+    WHEN OCCUPATION = 'Actor' THEN (@r4:=@r4+1) END AS RowNumber,
+    CASE WHEN OCCUPATION = 'Doctor' THEN Name END AS Doctor,
+    CASE WHEN OCCUPATION = 'Professor' THEN Name END AS Professor,
+    CASE WHEN OCCUPATION = 'Singer' THEN Name END AS Singer,
+    CASE WHEN OCCUPATION = 'Actor' THEN Name END AS Actor
+FROM OCCUPATIONS
+ORDER BY Name) as temp;
+-- With GROUP BY clause - The result set will have one row for EACH group (which is RowNumber in our case).
+
+
+
+-- 4. Binary Tree Nodes
+-- You are given a table, BST, containing two columns: N and P, where N represents the value of a node in Binary Tree, and P is the parent of N.
+-- column       | Type
+-- N            | Integer
+-- P            | Integer
+-- Write a query to find the node type of Binary Tree ordered by the value of the node. Output one of the following for each node:
+
+-- Root: If node is root node.
+-- Leaf: If node is leaf node.
+-- Inner: If node is neither root nor leaf node.
+select case
+    when p is null then concat(N, ' Root')
+    when n in (select distinct p from bst) then concat(N, ' Inner')
+    else concat(n, ' Leaf') 
+    end
+from bst
+order by n;
+
+-- 5. New Companies
+-- Amber's conglomerate corporation just acquired some new companies. Each of the companies follows this hierarchy:
+-- Founder
+-- Lead Manager
+-- Senior Manager
+-- Manager
+-- Employee
+
+-- Given the table schemas below, write a query to print the company_code, founder name, total number of lead managers, total number of senior managers, total number of managers, and total number of employees. Order your output by ascending company_code.
+
+-- Note:
+
+-- The tables may contain duplicate records.
+-- The company_code is string, so the sorting should not be numeric. For example, if the company_codes are C_1, C_2, and C_10, 
+-- then the ascending company_codes will be C_1, C_10, and C_2.
+select c.company_code, c.founder, 
+    count(distinct l.lead_manager_code), count(distinct s.senior_manager_code), 
+    count(distinct m.manager_code),count(distinct e.employee_code) 
+from Company c, Lead_Manager l, Senior_Manager s, Manager m, Employee e 
+where c.company_code = l.company_code 
+    and l.lead_manager_code=s.lead_manager_code 
+    and s.senior_manager_code=m.senior_manager_code 
+    and m.manager_code=e.manager_code 
+group by c.company_code order by c.company_code;
