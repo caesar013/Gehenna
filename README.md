@@ -1,2 +1,2 @@
 # Gehenna
-A repo to save my learning codes
+A repo to save miscellaneous codes
